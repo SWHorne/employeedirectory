@@ -1,9 +1,8 @@
-// import React, { useEffect } from 'react';
 import React from "react";
-import { TableHead } from "./TableHead";
+import { HeadTable } from "./HeadTable";
 import { useEffect } from "react";
 import API from "../utils/API";
-import { TableRow } from "./TableBody";
+import { TableRow } from "./BodyTable";
 
 export const Table = () => {
   const [users, setUsers] = React.useState([]);
@@ -16,12 +15,10 @@ export const Table = () => {
 
   useEffect(() => console.log(users), [users]);
 
-  const { TableHead } = require("./TableHead");
-
   return (
     <table>
       <thead>
-        <TableHead />
+        <HeadTable />
       </thead>
       <tbody>
         {users.map(user => <TableRow key={user.id.value} {...user} />)}

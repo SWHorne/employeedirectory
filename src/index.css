@@ -10,3 +10,13 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+table {
+  border-spacing: 1px;
+  border: 1px solid grey;
+}
+
+#picture {
+  border-radius: 50%;
+  overflow: hidden;
+}
