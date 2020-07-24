@@ -16,7 +16,7 @@ export const Table = () => {
 
   useEffect(() => console.log(users), [users]);
 
-  const { TableHead } = require("./Tablehead");
+  const { TableHead } = require("./TableHead");
 
   return (
     <table>
