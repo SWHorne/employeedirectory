@@ -1,0 +1,13 @@
+.search { 
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center; 
+}
+
+#FNSearch {
+    margin-right: 10px;
+}
+
+input { 
+width: 50%; 
+}
