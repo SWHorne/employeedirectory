@@ -63,13 +63,13 @@ class Emp extends Component {
   render() {
     const results = this.state.filteredRes;
     return (
-      <div>
+      <div id='appRender'>
         <h1 className="text-center">Employees</h1>
-        <Row className="row" id="sortRow">
-          <div className="col-sm-3" id="EmptyCol">
+        {/* <Row className="row" id="sortRow"> */}
+          {/* <Column className="col-sm-3" id="EmptyCol">
             <div></div>
-          </div>
-          <div className="col-sm-3" id="ascendCol">
+          </Column>
+          <Column className="col-sm-3" id="ascendCol"> */}
             <button
               type="button"
               className="btn"
@@ -78,8 +78,8 @@ class Emp extends Component {
             >
               Sort Ascending
             </button>
-          </div>
-          <div className="col-sm-3" id="descendCol">
+          {/* </Column>
+          <Column className="col-sm-3" id="descendCol"> */}
             <button
               type="button"
               className="btn"
@@ -88,38 +88,30 @@ class Emp extends Component {
             >
               Sort Descending
             </button>
-          </div>
-          <div className="col-sm-3" id="EmptyCol">
+          {/* </Column>
+          <Column className="col-sm-3" id="EmptyCol">
             <div></div>
-          </div>
-        </Row>
-        <div className="row" id="formRow">
-        <div className="col-sm-3" id="EmptyCol">
-            <div></div>
-          </div>
-          <form className="search form-inline" id="searchForm">
-            <div id="searchFields">
-          <div className="col-sm-3" id="FNCol">
-              <div id="FNSearch">
-                <input
-                  className="employeeSearch"
-                  placeholder="Search by First Name. "
-                  onChange={this.handelSearchFN}
-                />
-              </div>
-              </div>
-              <div className="col-sm-3" id="LNCol">
-              <div id="LNsearch">
-                <input
-                  className="employeeSearch"
-                  placeholder="Search by Last Name. "
-                  onChange={this.handelSearchLN}
-                />
-              </div>
+          </Column>
+        </Row> */}
+
+        <form className="search form-inline" id="searchForm">
+          <div id="searchFields">
+            <div id="FNSearch">
+              <input
+                className="employeeSearch"
+                placeholder="Search by First Name. "
+                onChange={this.handelSearchFN}
+              />
             </div>
+            <div id="LNsearch">
+              <input
+                className="employeeSearch"
+                placeholder="Search by Last Name. "
+                onChange={this.handelSearchLN}
+              />
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
         <Container>
           <Row>
             {results.map((employee, i) => (

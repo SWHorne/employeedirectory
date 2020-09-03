@@ -4,10 +4,10 @@
     justify-content: center; 
 }
 
-#FNSearch {
-    margin-right: 10px;
+input { 
+width: 100%; 
 }
 
-input { 
-width: 50%; 
+#appRender {
+    text-align: center;
 }
