@@ -1,0 +1,15 @@
+nav.navbar.navbar-default {
+    margin-bottom: 0;
+  }
+  .navbar { 
+    background: #444;
+    justify-content: center;
+    color: #818181;
+    text-align: center;
+  }
+  
+  
+  .btn { 
+    background-color: rgb(126, 126, 126);
+    margin: 5px;
+  }
