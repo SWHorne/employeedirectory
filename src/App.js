@@ -1,10 +1,18 @@
 import React from "react";
+import Main from "./components/Main";
+import Wrapper from "./components/Wrapper";
+import Header from "./components/Header";
+
 import "./App.css";
-import { Table } from './components/Table';
 
 function App() {
   return (
-    <Table />
+    <div className="App">
+      <Wrapper>
+        <Header />
+        <Main />
+      </Wrapper>
+    </div>
   );
 }
 

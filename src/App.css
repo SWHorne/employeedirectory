@@ -1,5 +1,11 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 .App {
   text-align: center;
+  font-family: 'Reem Kufi', sans-serif;
 }
 
 .App-logo {
@@ -30,14 +36,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-table {
-  border-spacing: 1px;
-  border: 1px solid grey;
-}
-
-#picture {
-  border-radius: 50%;
-  overflow: hidden;
 }
