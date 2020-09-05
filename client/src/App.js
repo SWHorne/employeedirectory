@@ -1,21 +1,16 @@
 import React from "react";
-import Main from "./pages/Main";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Wrapper from "./components/Wrapper";
+import { BrowserRouter as Router,  Route} from "react-router-dom";
+import Main from "./pages/Main.js";
 
 
-function App() {
+function App()
+{
   return (
-    <div>
-      <Navbar />
-      <Wrapper>
-        <Main />
-      </Wrapper>
-      <Footer />
-    </div>
+    <Router>
+      <Route path="/" component={Main}/>
+    </Router>
   );
-}
-
+};
 
 export default App;
+

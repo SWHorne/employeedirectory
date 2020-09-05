@@ -1,127 +1,76 @@
-import React, { Component } from "react";
-import API from "../utils/api";
-import Card from "../components/Card";
-import Row from "../components/Row";
-import Container from "../components/Container";
-import Column from "../components/Column";
-import "./style.css";
+import React, {useState, useEffect, Suspense} from "react";
+import Form from "../components/Form.js";
+// import Wrapper from "../components/Wrapper.js";
+import Table from "../components/Table.js";
+import Axios from "axios";
+const Wrapper = React.lazy(() => import("../components/Wrapper.js"))
 
-class Main extends Component {
-  state = {
-    results: [],
-    filteredRes: [],
-  };
+function Main()
+{
+    const [filter, setFilter] = useState("");
+    const [sort, setSort] = useState();
+    const [query, setQuery] = useState("/employees");
+    const [category, setCategory] = useState("");
+    const [employees, setEmployees] = useState([
+        {
+            id: 0,
+            firstname: "TempFirstName",
+            lastname: "TempLastName",
+            department: "Temp Department",
+            pay: 0
+        }
+    ]);
 
-  componentDidMount() {
-    API.findPeople().then((res) => {
-      this.setState({
-        filteredRes: res.data.results,
-        results: res.data.results,
-      });
-    });
-  }
+    useEffect(() => {
+        Axios({
+            url: query,
+            method:"GET"
+        }).then(collections => {
+            setEmployees(collections.data);
+        }).catch(error => console.log(error));
+    }, [query]);
 
-  handelSearchFN = (event) => {
-    const queryFN = event.target.value;
-    this.searchPeopleFN(queryFN);
-  };
-  handelSearchLN = (event) => {
-    const queryLN = event.target.value;
-    this.searchPeopleLN(queryLN);
-  };
+    useEffect(() => {
+        if(sort)
+        {
+            Axios({
+                url: `${query}/sort/${sort}`,
+                method:"GET"
+            }).then(collections => {
+                setEmployees(collections.data);
+            }).catch(error => console.log(error));
+        }
+    }, [sort]);
+    
+    const submitHandler = event => {
+        if(filter && category)
+        {
+            setQuery(`/employees/${category}/${filter}`);
+            return;
+        }
+        setQuery(`/employees`);
 
-  searchPeopleLN = (value) => {
-    const searchResults = this.state.results.filter((x) => {
-      return x.name.last.toLowerCase().includes(value);
-    });
-    this.setState({
-      filteredRes: searchResults,
-    });
-  };
-  searchPeopleFN = (value) => {
-    const searchResults = this.state.results.filter((x) => {
-      return x.name.first.toLowerCase().includes(value);
-    });
-    this.setState({ filteredRes: searchResults });
-    console.log(this.state.filteredRes);
-  };
+    };
 
-  handleSortAsc = (event) => {
-    const sorted = this.state.results.sort((a, b) =>
-      a.name.first > b.name.first ? 1 : -1
-    );
-    this.setState({ filteredRes: sorted });
-  };
-
-  handleSortDesc = (event) => {
-    const sorted = this.state.results.sort((a, b) =>
-      a.name.first < b.name.first ? 1 : -1
-    );
-    this.setState({ filteredRes: sorted });
-  };
-
-  render() {
-    const results = this.state.filteredRes;
-    return (
-      <div id='appRender'>
-        <h1 className="text-center">Employees</h1>
-            <button
-              type="button"
-              className="btn"
-              onClick={this.handleSortAsc}
-              id="sortAscend"
-            >
-              Sort Ascending
-            </button>
-            <button
-              type="button"
-              className="btn"
-              onClick={this.handleSortDesc}
-              id="sortdescend"
-            >
-              Sort Descending
-            </button>
-          
-
-        <form className="search form-inline" id="searchForm">
-          <div id="searchFields">
-            <div id="FNSearch">
-              <input
-                className="employeeSearch"
-                placeholder="Search by First Name. "
-                onChange={this.handelSearchFN}
-              />
-            </div>
-            <div id="LNsearch">
-              <input
-                className="employeeSearch"
-                placeholder="Search by Last Name. "
-                onChange={this.handelSearchLN}
-              />
-            </div>
-          </div>
-        </form>
-        <Container>
-          <Row>
-            {results.map((employee, i) => (
-              <Column key={i}>
-                <Card
-                  image={employee.picture.large}
-                  firstName={employee.name.first}
-                  lastName={employee.name.last}
-                  fullname={employee.name.first + employee.name.last}
-                  age={employee.dob.age}
-                  DOB={employee.dob.date}
-                  phoneNum={employee.phone}
-                  email={employee.email}
+    return(
+        <Suspense fallback={<h2>Loading Employee Form and Table</h2>} >
+            <Wrapper>
+                <Form 
+                    filter={filter} 
+                    setFilter={event => setFilter(event.target.value)} 
+                    category={category} 
+                    setCategory={event => setCategory(event.target.value)}
+                    submitHandler={submitHandler}
                 />
-              </Column>
-            ))}
-          </Row>
-        </Container>
-      </div>
+                <Table 
+                    employees={employees} 
+                    setSort={event => setSort(event.target.name)}
+                    className="row justify-content-center"
+                />
+            </Wrapper>
+        </Suspense>
+        
     );
-  }
-}
+};
 
 export default Main;
